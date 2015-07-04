@@ -14,23 +14,18 @@ Fups (FTP upload service) is a PHP script for FTP uploads and recreations projec
 Clone git repository:
 
 ```
-#!bash
-
 $ git clone https://piotrkabacinski@bitbucket.org/piotrkabacinski/fups.git
 ```
 
 After you clone the files I strongly recommend to create **bash alias** for faster script invoking. In this documentation I'm going to use **fups** alias as an example:
 
 ```
-#!bash
 alias fups="php /path/to/fups/fups"
 ```
 
 To test the installation simple lunch "hello" fups action.
 
 ```
-#!bash
-
 $ fups hello
 ```
 ## Usage ##
@@ -40,23 +35,17 @@ Usage of Fups is quite similar to other appliactions - just select file or direc
 To initialize application type "cf" action within your project's home folder:
 
 ```
-#!bash
-
 $ fups cf
 ```
 
 "cf" stands for "create fups". It makes an unique json file for project's directory that will contain access data for the future connections to the server. To get connection file name and it's path for configure type "cfname" action:
 
 ```
-#!bash
-
 $ fups cfname
 /path/to/fups/classes/../fups_connects/aaa111bbb.json
 $ nano /path/to/fups/classes/../fups_connects/aaa111bbb.json
 ```
 ```
-#!JSON
-
 {
   "connection" : {
     
@@ -73,7 +62,6 @@ $ nano /path/to/fups/classes/../fups_connects/aaa111bbb.json
 The "dir" value represents path to the parent location on the server where the uploads will be done. After you fill up and save the file you are ready to go! Use "test" action to make a connection to the server in selected location:
 
 ```
-#!bash
 $ fups test
 Connected succesfully to ftp.example.com @ /project
 ```
@@ -82,17 +70,14 @@ To start uploading use "u" action. As a parameter you can choose:
 
 * File:
 ```
-#!bash
 $ fups u directory/index.html
 ```
 * Direcotry and it's content:
 ```
-#!bash
 $ fups u css/
 ```
 * Group of these objects seperated by ";":
 ```
-#!bash
 $ fups u "css/;assets/pdf/document.pdf;index.html"
 ```
 ## Actions ##
