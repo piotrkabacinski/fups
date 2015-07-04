@@ -1,0 +1,66 @@
+<?php
+
+require_once("classes/fups.class.php");
+
+$action = ( isset( $_SERVER['argv'][1] ) ) ? $_SERVER['argv'][1] : null;
+$params = ( isset( $_SERVER['argv'][2] ) ) ? $_SERVER['argv'][2] : null;
+$location = getcwd();
+
+$fups = new fups( $location );
+
+switch ( $action ) {
+
+	case "u":
+
+		$fups->connect();
+		$fups->upload( $params );
+		$fups->disconnect();
+
+	break;
+
+	case "cf":
+
+		$fups->createFups();
+		
+	break;
+
+	case "rmcf":
+
+		$fups->rmcf();
+		
+	break;
+
+	case "test":
+
+		$fups->testConnection();
+		$fups->disconnect();
+		
+	break;
+
+	case "cfname":
+
+		$fups->cfname();
+		
+	break;
+
+	case "hello":
+
+		echo "\033[32mFups 1.0 says Hello! :)\033[0m\n";
+		
+	break;
+
+	case "help":
+
+		echo "\nFups 1.0 commands:\n\n\033[33mu\033[0m - uploads files(s) separated by \";\"\n\033[33mcf\033[0m - creates fups connection file\n\033[33mtest\033[0m - do the test connection\n\033[33mcfname\033[0m - returns connection file path\n\033[33mrmcf\033[0m - deletes connection file\n\n";
+		
+	break;
+
+	default:
+
+		echo "Oops! No correct fups command selected! Type \033[33mfups help\033[0m for the list.\n";
+
+	break;
+
+}
+
+?>
