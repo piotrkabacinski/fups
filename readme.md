@@ -14,7 +14,7 @@ Fups (FTP upload service) is a PHP script for FTP uploads and recreations projec
 Clone git repository:
 
 ```
-$ git clone https://piotrkabacinski@bitbucket.org/piotrkabacinski/fups.git
+$ git clone https://github.com/piotrkabacinski/fups
 ```
 
 After you clone the files I strongly recommend to create **bash alias** for faster script invoking. In this documentation I'm going to use **fups** alias as an example:
