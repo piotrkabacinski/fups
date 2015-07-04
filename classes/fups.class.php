@@ -2,11 +2,12 @@
 
 class fups {
 
-    var $host;
-    var $login;
-    var $password;
-    var $dir;
-    var $port;
+    private $host;
+    private $login;
+    private $password;
+    private $dir;
+    private $port;
+    
     var $connection;
     var $source;
     var $location;
@@ -28,7 +29,7 @@ class fups {
 
     }
 
-    public function connect() {
+    function connect() {
 
     	if( file_exists( __DIR__ . "/../fups_connects/" . sha1( $this->location ) . ".json" ) ) {
 
@@ -38,7 +39,7 @@ class fups {
 	        $this->login = $fups['connection']['login'];
 	        $this->password = $fups['connection']['password'];
 	        $this->dir = $fups['dir'];
-            $this->port = $fups['connection']['port'];
+			$this->port = $fups['connection']['port'];
 
 	        $connection = ftp_connect( $this->host, $this->port ) or die ($this->red . "Cannot connect to host" .$this->messageEnd); 
 
@@ -69,19 +70,19 @@ class fups {
 
     }
 
-    public function testConnection() {
+    function testConnection() {
 
         $this->connect();
 
         if( $this->connection && @ftp_chdir( $this->connection , $this->dir ) ) {
 
-            echo $this->green . "Connected succesfully to " . $this->host . " @ " . $this->dir . $this->messageEnd;
+            echo $this->green . "Connected succesfully to " . $this->dir . " @ " . $this->host . $this->messageEnd;
         }
 
 
     }
 
-    public function disconnect() {
+    function disconnect() {
 
         ftp_close( $this->connection );
 
@@ -90,7 +91,7 @@ class fups {
     }
 
 
-    public function upload( $source ) {
+    function upload( $source ) {
 
 			if( empty( $source ) ) {
 
@@ -128,10 +129,12 @@ class fups {
 
        		}
 
+       		return;
+
     }
 
 
-    public function uploadHandler( $source ) {
+    function uploadHandler( $source ) {
 
     	echo "Uploading..." . $this->messageEnd;
 
@@ -143,7 +146,7 @@ class fups {
 
             $this->ftp_putAll( $source );
 
-            $status = $this->green . "Directory \"" . $source . "\" uploaded (" . $this->host . " @ ".$this->dir." t: ".round( $this->microtime() - $time_start , 3).")" . $this->messageEnd;
+            $status = $this->green . "Directory \"" . $source . "\" uploaded (" . $this->dir . " @ ". $this->host ." t: ".round( $this->microtime() - $time_start , 3).")" . $this->messageEnd;
 
 
         } else if( is_file( $source ) && strpos( $source , "/" ) == false ) {
@@ -152,7 +155,7 @@ class fups {
 
             $upload = ftp_put( $this->connection , $this->dir."/".$source , $source, FTP_BINARY );
 
-            $status = $this->green . "File \"" . $source . "\" uploaded! (" . $this->host . " @ ".$this->dir." t: ".round( $this->microtime() - $time_start , 3 ).")" . $this->messageEnd;
+            $status = $this->green . "File \"" . $source . "\" uploaded! (" . $this->dir . " @ ". $this->host ." t: ".round( $this->microtime() - $time_start , 3 ).")" . $this->messageEnd;
 
         } else {
 
@@ -161,7 +164,7 @@ class fups {
             ftp_pasv ($this->connection, true);
             $upload = ftp_put( $this->connection , $this->dir."/".$source , $source, FTP_BINARY );
 
-            $status = $this->green . "File \"" . $source . "\" uploaded! (" . $this->host . " @ ".$this->dir." t: ".round( $this->microtime() - $time_start , 3 ).")" . $this->messageEnd;
+            $status = $this->green . "File \"" . $source . "\" uploaded! (" . $this->dir . " @ ". $this->host ." t: ".round( $this->microtime() - $time_start , 3 ).")" . $this->messageEnd;
 
         }
 
@@ -171,7 +174,7 @@ class fups {
 
     }
 
-   public function createPath( $source , $option ) {
+   function createPath( $source , $option ) {
 
         // $option: 1: file, 0: dir
 
@@ -196,10 +199,10 @@ class fups {
 
     }
 
-    public function ftp_putAll( $source ) {
+    function ftp_putAll( $source ) {
 
     /*
-     * @autor: Uku Loskit <http://stackoverflow.com/questions/8773843/php-ftp-put-copy-entire-folder-structure#8773896>
+     * @author: Uku Loskit <http://stackoverflow.com/questions/8773843/php-ftp-put-copy-entire-folder-structure#8773896>
      */
 
         $d = dir( $source );
@@ -233,7 +236,7 @@ class fups {
         
     }
 
-    public function createFups() {
+    function createFups() {
 
 	    $file = __DIR__ . "/../fups_connects/" . sha1( $this->location ) . ".json";
 
@@ -272,7 +275,7 @@ $content = "{
     
 	}
 
-    public function cfname() {
+    function cfname() {
 
         if( file_exists( __DIR__ . "/../fups_connects/" . sha1( $this->location ) . ".json" ) ) {
 
@@ -287,7 +290,7 @@ $content = "{
 
     }
 
-    public function rmcf() {
+    function rmcf() {
 
         if( file_exists( __DIR__ . "/../fups_connects/" . sha1( $this->location ) . ".json" ) ) {
 
@@ -304,7 +307,7 @@ $content = "{
 
     }
 
-	 public function microtime() {
+	function microtime() {
 
 	    list($usec, $sec) = explode(" ", microtime());
 
