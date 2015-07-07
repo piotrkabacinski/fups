@@ -39,23 +39,23 @@ class fups {
 	        $this->login = $fups['connection']['login'];
 	        $this->password = $fups['connection']['password'];
 	        $this->dir = $fups['dir'];
-			$this->port = $fups['connection']['port'];
+		$this->port = $fups['connection']['port'];
 
 	        $connection = ftp_connect( $this->host, $this->port ) or die ($this->red . "Cannot connect to host" .$this->messageEnd); 
 
 	        ftp_login( $connection, $this->login, $this->password ) or die($this->red . "Cannot login" .$this->messageEnd);
 
-            if( ftp_site( $connection , sprintf('CHMOD %o %s', 0777 , $this->dir) ) ) {
-
-                $this->connection = $connection;
-
-            } else {
-
-                echo $this->red . "No " . $this->dir . " @ " . $this->host . $this->messageEnd;
-
-                exit;
-
-            }
+	            if( ftp_site( $connection , sprintf('CHMOD %o %s', 0777 , $this->dir) ) ) {
+	
+	                $this->connection = $connection;
+	
+	            } else {
+	
+	                echo $this->red . "No " . $this->dir . " @ " . $this->host . $this->messageEnd;
+	
+	                exit;
+	
+	            }
 	        
 
     	} else {
@@ -78,61 +78,57 @@ class fups {
 
             echo $this->green . "Connected succesfully to " . $this->dir . " @ " . $this->host . $this->messageEnd;
         }
-
-
+        
+        return;
+        
     }
 
     function disconnect() {
-
+    	
         ftp_close( $this->connection );
-
         return;
-        
     }
 
 
     function upload( $source ) {
 
-			if( empty( $source ) ) {
+	if( empty( $source ) ) {
 
-				echo $this->red . "No files to upload?" . $this->messageEnd;
+		echo $this->red . "No files to upload?" . $this->messageEnd;
 
-			}  else { 
+	}  else { 
 
-	            $list = explode( ";" , $source );
+            $list = explode( ";" , $source );
 
 	            for( $i = 0; $i < count($list); $i++ ) {
-
+	
 	                $file = $list[$i];
-
+	
 	                if( substr( $file, -1 ) == "/") {
-
+	
 	                    $file = substr( $file, 0, -1 );
-
+	
 	                }
-
+	
 	                if( $file[0] == "/" ) {
-
+	
 	                    $file = substr( $file , 1 );
-
+	
 	                }
-
+	
 	               if( !empty($file) ) {
-
+	
 	               	 $this->uploadHandler( $file );
-
+	
 	               }              
-
+	
 	               unset( $file );
-
 	            }
+       	}
 
-       		}
-
-       		return;
-
+       return;
+       
     }
-
 
     function uploadHandler( $source ) {
 
@@ -143,35 +139,27 @@ class fups {
         if( is_dir( $source ) ) {
 
             $this->createPath( $source , 0 );
-
             $this->ftp_putAll( $source );
-
             $status = $this->green . "Directory \"" . $source . "\" uploaded (" . $this->dir . " @ ". $this->host ." t: ".round( $this->microtime() - $time_start , 3).")" . $this->messageEnd;
-
 
         } else if( is_file( $source ) && strpos( $source , "/" ) == false ) {
 
             ftp_pasv($this->connection, true);
-
             $upload = ftp_put( $this->connection , $this->dir."/".$source , $source, FTP_BINARY );
-
             $status = $this->green . "File \"" . $source . "\" uploaded! (" . $this->dir . " @ ". $this->host ." t: ".round( $this->microtime() - $time_start , 3 ).")" . $this->messageEnd;
 
         } else {
 
             $this->createPath( $source , 1 );
-
             ftp_pasv ($this->connection, true);
             $upload = ftp_put( $this->connection , $this->dir."/".$source , $source, FTP_BINARY );
-
             $status = $this->green . "File \"" . $source . "\" uploaded! (" . $this->dir . " @ ". $this->host ." t: ".round( $this->microtime() - $time_start , 3 ).")" . $this->messageEnd;
-
         }
 
         echo $status;
-
+        
         return;
-
+        
     }
 
    function createPath( $source , $option ) {
@@ -179,7 +167,6 @@ class fups {
         // $option: 1: file, 0: dir
 
         $ftp_path = $this->dir . "/";
-
         $path = explode( "/" , $source );
 
         for( $i = 0; $i < count($path) - $option; $i++ ) {
@@ -188,7 +175,7 @@ class fups {
 
                 ftp_mkdir($this->connection, $ftp_path . $path[$i] );
                 ftp_chmod($this->connection, 0777, $ftp_path . $path[$i] );
-
+                
             }
 
             $ftp_path = $ftp_path . $path[$i] . "/";
@@ -196,7 +183,7 @@ class fups {
         }
 
         return;
-
+        
     }
 
     function ftp_putAll( $source ) {
@@ -231,16 +218,14 @@ class fups {
         }
 
         $d->close();
-
+        
         return;
         
     }
 
     function createFups() {
 
-	    $file = __DIR__ . "/../fups_connects/" . sha1( $this->location ) . ".json";
-
-        
+	$file = __DIR__ . "/../fups_connects/" . sha1( $this->location ) . ".json";
 
 $content = "{
   \"connection\" : {
@@ -256,24 +241,22 @@ $content = "{
 
 }";
 
-
-		if( file_exists( $file  ) ) {
-
-			echo $this->red . "Fups file exists!" . $this->messageEnd;
-
-		} else {
-
-			$fp = fopen( $file , "a");
-			fwrite($fp , $content );
-			fclose($fp);
-
-			echo $this->green . "Fups file created!" . $this->messageEnd;
-
-		}
-
-		return;
-    
+	if( file_exists( $file ) ) {
+	
+		echo $this->red . "Fups file exists!" . $this->messageEnd;
+	
+	} else {
+	
+		$fp = fopen( $file , "a");
+		fwrite($fp , $content );
+		fclose($fp);
+	
+		echo $this->green . "Fups file created!" . $this->messageEnd;
 	}
+	
+	return;
+	
+    }
 
     function cfname() {
 
@@ -287,6 +270,7 @@ $content = "{
 
         }
 
+	return;
 
     }
 
@@ -307,14 +291,14 @@ $content = "{
 
     }
 
-	function microtime() {
-
+    function microtime() {
+	
 	    list($usec, $sec) = explode(" ", microtime());
-
 	    return ((float)$usec + (float)$sec);
-
-	}
-
+	    
+	    return;
+	    
+    }
 }
 
 ?>
