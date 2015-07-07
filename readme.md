@@ -72,7 +72,7 @@ To start uploading use "u" action. As a parameter you can choose:
 ```
 $ fups u directory/index.html
 ```
-* Direcotry and it's content:
+* Directory and it's content:
 ```
 $ fups u css/
 ```
