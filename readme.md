@@ -63,7 +63,7 @@ The "dir" value represents path to the parent location on the server where the u
 
 ```
 $ fups test
-Connected succesfully to /project @ ftp.example.com
+Connected successfully to /project @ ftp.example.com
 ```
 
 To start uploading use "u" action. As a parameter you can choose:
