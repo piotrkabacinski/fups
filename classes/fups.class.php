@@ -76,7 +76,7 @@ class fups {
 
         if( $this->connection && @ftp_chdir( $this->connection , $this->dir ) ) {
 
-            echo $this->green . "Connected succesfully to " . $this->dir . " @ " . $this->host . $this->messageEnd;
+            echo $this->green . "Connected successfully to " . $this->dir . " @ " . $this->host . $this->messageEnd;
         }
         
         return;
