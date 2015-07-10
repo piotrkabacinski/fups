@@ -63,22 +63,22 @@ The "dir" value represents path to the parent location on the server where the u
 
 ```
 $ fups test
-Connected succesfully to ftp.example.com @ /project
+Connected succesfully to /project @ ftp.example.com
 ```
 
 To start uploading use "u" action. As a parameter you can choose:
 
 * File:
 ```
-$ fups u directory/index.html
+$ fups u directory/foo.txt
 ```
 * Directory and it's content:
 ```
-$ fups u css/
+$ fups u images/
 ```
 * Group of these objects seperated by ";":
 ```
-$ fups u "css/;assets/pdf/document.pdf;index.html"
+$ fups u "images/;assets/pdf/document.pdf;foo.txt"
 ```
 ## Actions ##
 
