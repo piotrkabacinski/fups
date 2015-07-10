@@ -45,7 +45,7 @@ $ fups cfname
 /path/to/fups/classes/../fups_connects/aaa111bbb.json
 $ nano /path/to/fups/classes/../fups_connects/aaa111bbb.json
 ```
-```
+```JSON
 {
   "connection" : {
     
