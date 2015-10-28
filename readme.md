@@ -8,7 +8,7 @@
 
 ## What's Fups ant what it's not? ##
 
-Fups (FTP upload service) is a PHP script for FTP uploads and recreations project's local structure on the server. It's not a standard FTP CLI client application. You cannot modify or delete items directly on the server. The goal is to make regular files updates easy and fast. Especially when you are not able to connect to the server via SSH or similar methods.
+Fups (FTP upload service) is a PHP script for FTP uploads and recreations project's local structure on the server. It's not a standard FTP CLI client application. You cannot modify or delete items directly on the server. The goal is to make regular files updates easy and fast. Especially when you are not able to connect to the server via SSH or through similar methods.
 
 ## Installation ##
 
