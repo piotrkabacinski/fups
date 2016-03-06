@@ -83,7 +83,7 @@ $ fups u "images/;assets/pdf/document.pdf;foo.txt"
 ```
 ## Actions ##
 
-Action:  | Result 
+Action  | Result 
 :---------|:-----
 help      |List of actions
 hello     |Inits script's hello message
